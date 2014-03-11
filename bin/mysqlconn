@@ -18,6 +18,14 @@ rescue Errno::ENOENT => e
 end
 raise("Config file is world readable. Exiting...") if File.stat(CONFIG_LOCATION).world_readable?
 
+if db_key == '-l'
+  filter = /.*#{ARGV.shift||'.*'}.*/
+  config.keys.each do |k|
+    puts k if filter =~ k
+  end 
+  exit(0)
+end
+
 db = config[db_key] || raise("No #{db_key} found")
 
 db['host'] || raise("No #{db_key}.host found")

@@ -1,5 +1,5 @@
 mysqlconn - The mysql connection assistant
-==========================================
+------------------------------------------
 
 ### Instructions
 
@@ -36,5 +36,5 @@ etc..
 
 ### License
 
-MIT - go nuts
+Apache 2.0 - go nuts
 
