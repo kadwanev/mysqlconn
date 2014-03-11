@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# Copyright Neville Kadwa (2014)
+
 require 'yaml'
 require 'fileutils'
 
