@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require 'fileutils'
+
+CONFIG_LOCATION=File.expand_path("~/.db_connection_alias.yml")
+
+db_key = ARGV.shift || raise('no db key provided. Usage mysqlconn db_key [mysql opts]*')
+
+config = begin
+  File.open(CONFIG_LOCATION, 'r') do |f| 
+    YAML.load(f)
+  end
+rescue Errno::ENOENT => e
+  raise("No config found. Please follow instructions for creating #{CONFIG_LOCATION}")
+end
+raise("Config file is world readable. Exiting...") if File.stat(CONFIG_LOCATION).world_readable?
+
+db = config[db_key] || raise("No #{db_key} found")
+
+db['host'] || raise("No #{db_key}.host found")
+
+command = "mysql -h #{db['host']} --prompt=\"\\u@#{db_key} [\\d]> \""
+
+command << " -u #{db['user']}" if db['user']
+command << " -p#{db['password']}" if db['password']
+command << " -D #{db['database']}" if db['database']
+unless ARGV.empty?
+  command << " "
+  command << ARGV.map{|s| "'#{s}'"}.join(' ')
+end
+
+exec(command)
