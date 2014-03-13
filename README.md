@@ -34,7 +34,16 @@ Pipe:
 
 etc..
 
+### Autocomplete
+
+Add to bash.completion.d
+
+    _mysqlconn() {
+      local cur=${COMP_WORDS[COMP_CWORD]}
+      COMPREPLY=( $( compgen -W "$(mysqlconn -l)" -- $cur ) )
+    }
+    complete -F _mysqlconn mysqlconn
+
 ### License
 
 Apache 2.0 - go nuts
-
