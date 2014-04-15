@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'mysqlconn'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.summary     = "mysql command line configuration assistant"
   s.description = "Save your various database credentials to a configuration file and zip around easily"
   s.authors     = ["Neville Kadwa"]
