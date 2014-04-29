@@ -55,6 +55,9 @@ To mysqldump:
 
 `mysqldumpconn db_key [additional options]`
 
+Verbose:
+
+Add `-v` BEFORE the db_key to print out the final executed command to STDERR. BEWARE: It will print plain password.
 
 ### Autocomplete
 
@@ -65,6 +68,7 @@ Add to bash.completion.d or wherever:
       COMPREPLY=( $( compgen -W "$(mysqlconn -l)" -- $cur ) )
     }
     complete -F _mysqlconn mysqlconn
+    complete -F _mysqlconn mysqldumpconn
 
 ### License
 
