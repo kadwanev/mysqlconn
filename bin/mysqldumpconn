@@ -4,4 +4,4 @@ require 'rubygems'
 
 require File.expand_path("../../lib/mysqlconn.rb", __FILE__)
 
-MysqlConn.new(MysqlConn::MODE_MYSQL).run(ARGV)
+MysqlConn.new(MysqlConn::MODE_MYSQLDUMP).run(ARGV)

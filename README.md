@@ -15,6 +15,7 @@ Create `~/.db_connection_alias.yml`
 
     db_key:
       host: hostname
+      port: port			# Optional
       user: username		# Optional
       password: password		# Optional
     #  password: ''		# Optional, prompt for password
@@ -49,6 +50,11 @@ Pipe:
 `mysqlconn db_key < script.sql > output`
 
 etc..
+
+To mysqldump:
+
+`mysqldumpconn db_key [additional options]`
+
 
 ### Autocomplete
 
