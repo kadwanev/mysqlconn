@@ -13,6 +13,10 @@ Install:
 
 Create `~/.db_connection_alias.yml`
 
+    config:
+      default_arg:          # any desired default arguments
+    #    mysql: -A
+        mysqldump: --quick --single-transaction
     db_key:
       host: hostname
       port: port			# Optional

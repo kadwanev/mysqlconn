@@ -11,6 +11,7 @@ class MysqlConn
   CONFIG_LOCATION=File.expand_path("~/.db_connection_alias.yml")
 
   attr_reader :mode
+  attr_reader :config
   attr_reader :verbose
   attr_reader :db_key
 
@@ -33,9 +34,19 @@ class MysqlConn
   def mode_default_args(args)
     case mode
       when :MYSQL
-        "--prompt=\"\\u@#{db_key} [\\d]> \""
+        "--prompt=\"\\u@#{db_key} [\\d]> \" " <<
+        if config['config'] && config['config']['default_arg'] && config['config']['default_arg']['mysql']
+          config['config']['default_arg']['mysql']
+        else
+          ""
+        end
+
       when :MYSQLDUMP
-        ""
+        if config['config'] && config['config']['default_arg'] && config['config']['default_arg']['mysqldump']
+          config['config']['default_arg']['mysqldump']
+        else
+          ""
+        end
       else
         raise "Unknown mode: #{mode}"
     end
@@ -45,7 +56,7 @@ class MysqlConn
 
     @db_key = args.shift || raise('no db key provided. Usage mysqlconn db_key [mysql opts]*')
 
-    config = begin
+    @config = begin
       File.open(CONFIG_LOCATION, 'r') do |f|
         YAML.load(f)
       end
@@ -61,7 +72,9 @@ class MysqlConn
     if db_key == '-l'
       filter = /.*#{args.shift||'.*'}.*/
       config.keys.each do |k|
-        puts k if filter =~ k
+        if k != 'config' && filter =~ k
+          puts k
+        end
       end
       exit(0)
     end
