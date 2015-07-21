@@ -1,6 +1,7 @@
 require 'yaml'
 require 'fileutils'
 require 'set'
+require 'json'
 
 # Copyright Neville Kadwa (2014)
 
@@ -78,6 +79,13 @@ class MysqlConn
       end
       exit(0)
     end
+    if db_key == '-c'
+      @db_key = args.shift || raise('no db key provided. Usage for configuration: mysqlconn -c db_key')
+      db = config[db_key] || raise("No #{db_key} found")
+      puts JSON.pretty_generate(config[db_key])
+      exit(0)
+    end
+
 
     db = config[db_key] || raise("No #{db_key} found")
 
