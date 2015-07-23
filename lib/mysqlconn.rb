@@ -79,6 +79,7 @@ class MysqlConn
       end
       exit(0)
     end
+    # Leaving -c (configuration) option undocumented. Extract config hash for other applications to use.
     if db_key == '-c'
       @db_key = args.shift || raise('no db key provided. Usage for configuration: mysqlconn -c db_key')
       db = config[db_key] || raise("No #{db_key} found")

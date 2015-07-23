@@ -14,9 +14,9 @@ Install:
 Create `~/.db_connection_alias.yml`
 
     config:
-      default_arg:          # any desired default arguments
-    #    mysql: -A
-        mysqldump: --quick --single-transaction
+      default_arg:          # default arguments
+        mysql: -A -C
+        mysqldump: --quick --single-transaction -C
     db_key:
       host: hostname
       port: port			# Optional
@@ -35,7 +35,7 @@ Protect configuration file:
 
 Connect:
 
-`mysqlconn db_key [additional options]`
+`mysqlconn db_key [any additional mysql options]`
 
 Look at that beautiful prompt:
 
@@ -57,7 +57,7 @@ etc..
 
 To mysqldump:
 
-`mysqldumpconn db_key [additional options]`
+`mysqldumpconn db_key [any additional mysqldump options]`
 
 Verbose:
 
