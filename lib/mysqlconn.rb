@@ -91,11 +91,14 @@ class MysqlConn
 
     db['host'] || raise("No #{db_key}.host found")
 
-    command = "#{mode_command} -h #{db['host']} #{mode_default_args(args)}"
+    command = ""
+
+    command << "MYSQL_PWD=#{db['password']} " if db['password']
+
+    command << "#{mode_command} -h #{db['host']} #{mode_default_args(args)}"
 
     command << " -P #{db['port']}" if db['port']
     command << " -u #{db['user']}" if db['user']
-    command << " -p#{db['password']}" if db['password']
     if db['database'] && mode == :MYSQL
       case mode
         when :MYSQL
